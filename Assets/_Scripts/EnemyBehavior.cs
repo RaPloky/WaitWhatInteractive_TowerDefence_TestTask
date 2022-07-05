@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    public float speed;
+    [SerializeField] float speed;
     [SerializeField] float distanceLimit;
+
+    public int destroyReward;
 
     private Transform target;
     private int waypointIndex = 0;
@@ -35,6 +37,12 @@ public class EnemyBehavior : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        DestroyEnemy();
+    }
+    private void DestroyEnemy()
+    {
+        CoinManager.coinsCount += destroyReward;
+        SetCoinsInfo.UpdateCoinsInfo(CoinManager.coinsCount);
         WaveSpawner.currentWaveEnemies--;
         Destroy(gameObject);
     }
