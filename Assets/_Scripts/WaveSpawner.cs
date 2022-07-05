@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaveSpawner : MonoBehaviour
 {
     public static int currentWaveEnemies;
+    [HideInInspector] public int currentWaveIndex = 1;
     [Header("Game Objects")]
     [SerializeField] Transform enemyPrefab;
     [SerializeField] Transform spawnStart;
@@ -16,6 +17,8 @@ public class WaveSpawner : MonoBehaviour
     [Header("Enemies Count")]
     [SerializeField] [Range(1, 20)] int firstWaveEnemies;
     [SerializeField] [Range(1, 50)] int regularWaveEnemies;
+    [Header("Waves")]
+    [SerializeField] [Range(1, 20)] int levelWaveCount;
 
     private bool _isAllWaveDefeated = false;
 
@@ -34,9 +37,14 @@ public class WaveSpawner : MonoBehaviour
     {
         while (true)
         {
+            if (currentWaveIndex == levelWaveCount)
+                yield break;
+
             yield return new WaitForSeconds(checkDelay);
             if (IsWaveDefeated())
             {
+                currentWaveIndex++;
+                // For new wave:
                 _isAllWaveDefeated = false;
                 StartCoroutine(SpawnWave(regularWaveDelay, regularWaveEnemies));
                 yield break;

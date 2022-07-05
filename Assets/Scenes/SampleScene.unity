@@ -171,10 +171,11 @@ MonoBehaviour:
   spawnStart: {fileID: 1554161031}
   firstWaveDelay: 1
   regularWaveDelay: 3
-  inwaveSpawnDelay: 1.5
+  inwaveSpawnDelay: 1.14
   checkDelay: 1
-  firstWaveEnemies: 3
-  regularWaveEnemies: 7
+  firstWaveEnemies: 2
+  regularWaveEnemies: 2
+  levelWaveCount: 1
 --- !u!1001 &129587863
 PrefabInstance:
   m_ObjectHideFlags: 0
