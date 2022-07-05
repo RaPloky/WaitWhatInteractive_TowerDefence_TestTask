@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyNavigation : MonoBehaviour
+public class EnemyBehavior : MonoBehaviour
 {
     public float speed;
     [SerializeField] float distanceLimit;
@@ -17,7 +17,7 @@ public class EnemyNavigation : MonoBehaviour
     private void Update()
     {
         Vector2 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        transform.Translate(speed * Time.deltaTime * dir.normalized, Space.World);
 
         if (Vector2.Distance(transform.position, target.position) <= distanceLimit)
             GetNextWaypoint();
@@ -26,10 +26,16 @@ public class EnemyNavigation : MonoBehaviour
     {
         if (waypointIndex >= Waypoints.waypoints.Length - 1)
         {
+            WaveSpawner.currentWaveEnemies--;
             Destroy(gameObject);
             return;
         }
         waypointIndex++;
         target = Waypoints.waypoints[waypointIndex];
+    }
+    private void OnMouseDown()
+    {
+        WaveSpawner.currentWaveEnemies--;
+        Destroy(gameObject);
     }
 }
