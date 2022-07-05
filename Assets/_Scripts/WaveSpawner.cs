@@ -18,13 +18,14 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] [Range(1, 20)] int firstWaveEnemies;
     [SerializeField] [Range(1, 50)] int regularWaveEnemies;
     [Header("Waves")]
-    [SerializeField] [Range(1, 20)] int levelWaveCount;
+    [SerializeField] [Range(1, 20)] int levelWavesCount;
 
     private bool _isAllWaveDefeated = false;
 
     private void Start() => StartCoroutine(SpawnWave(firstWaveDelay, firstWaveEnemies));
     private IEnumerator SpawnWave(float waveDelay, int enemiesCount)
     {
+        SetWaveInfo.UpdateWaveInfo(currentWaveIndex, levelWavesCount);
         yield return new WaitForSeconds(waveDelay);
         for (int i = 0; i < enemiesCount; i++)
         {
@@ -37,7 +38,7 @@ public class WaveSpawner : MonoBehaviour
     {
         while (true)
         {
-            if (currentWaveIndex == levelWaveCount)
+            if (currentWaveIndex == levelWavesCount)
                 yield break;
 
             yield return new WaitForSeconds(checkDelay);
