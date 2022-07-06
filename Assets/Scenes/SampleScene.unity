@@ -725,7 +725,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5.1320224, y: 0}
+  m_AnchoredPosition: {x: 5.132023, y: 0}
   m_SizeDelta: {x: -30.78, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &408944040
@@ -1809,6 +1809,8 @@ MonoBehaviour:
   attackRange: 2.3
   enemyTag: Enemy
   updateTargetFrequency: 1.5
+  fireRate: 1
+  damage: 50
 --- !u!1001 &1692072441
 PrefabInstance:
   m_ObjectHideFlags: 0

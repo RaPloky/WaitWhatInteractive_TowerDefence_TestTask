@@ -8,6 +8,8 @@ public class TowerBehavior : MonoBehaviour
     [SerializeField] float attackRange;
     [SerializeField] string enemyTag;
     [SerializeField] float updateTargetFrequency;
+    [SerializeField] float fireRate;
+    [SerializeField] int damage;
 
     private void Start()
     {
@@ -29,16 +31,20 @@ public class TowerBehavior : MonoBehaviour
             }
         }
         if (nearestEnemy != null && shortestDistance <= attackRange)
+        {
             _target = nearestEnemy.transform;
+            ShootTarget(_target, damage);
+        }
         else
             _target = null;
     }
-    private void Update()
+    private void ShootTarget(Transform target, int damage)
     {
-        if (_target == null)
-            return;
+        int targetHealth = target.GetComponent<EnemyBehavior>().health;
+        target.GetComponent<EnemyBehavior>().health = Mathf.Clamp(targetHealth - damage, 0, targetHealth);
 
-
+        if (target.GetComponent<EnemyBehavior>().health == 0)
+            target.GetComponent<EnemyBehavior>().DestroyEnemy();
     }
     private void OnDrawGizmosSelected()
     {

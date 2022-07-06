@@ -7,6 +7,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float distanceLimit;
 
+    public int health;
     public int destroyReward;
 
     private Transform target;
@@ -35,11 +36,7 @@ public class EnemyBehavior : MonoBehaviour
         waypointIndex++;
         target = Waypoints.waypoints[waypointIndex];
     }
-    private void OnMouseDown()
-    {
-        DestroyEnemy();
-    }
-    private void DestroyEnemy()
+    public void DestroyEnemy()
     {
         CoinManager.coinsCount += destroyReward;
         SetCoinsInfo.UpdateCoinsInfo(CoinManager.coinsCount);
