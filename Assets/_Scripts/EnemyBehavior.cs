@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
@@ -10,19 +8,19 @@ public class EnemyBehavior : MonoBehaviour
     public int health;
     public int destroyReward;
 
-    private Transform target;
+    private Transform waypointTarget;
     private int waypointIndex = 0;
 
     private void Start()
     {
-        target = Waypoints.waypoints[0];
+        waypointTarget = Waypoints.waypoints[0];
     }
     private void Update()
     {
-        Vector2 dir = target.position - transform.position;
+        Vector2 dir = waypointTarget.position - transform.position;
         transform.Translate(speed * Time.deltaTime * dir.normalized, Space.World);
 
-        if (Vector2.Distance(transform.position, target.position) <= distanceLimit)
+        if (Vector2.Distance(transform.position, waypointTarget.position) <= distanceLimit)
             GetNextWaypoint();
     }
     private void GetNextWaypoint()
@@ -34,7 +32,7 @@ public class EnemyBehavior : MonoBehaviour
             return;
         }
         waypointIndex++;
-        target = Waypoints.waypoints[waypointIndex];
+        waypointTarget = Waypoints.waypoints[waypointIndex];
     }
     public void DestroyEnemy()
     {

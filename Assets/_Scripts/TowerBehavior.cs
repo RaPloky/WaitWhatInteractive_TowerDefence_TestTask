@@ -5,15 +5,16 @@ using UnityEngine;
 public class TowerBehavior : MonoBehaviour
 {
     private Transform _target;
-    [SerializeField] float attackRange;
+
     [SerializeField] string enemyTag;
-    [SerializeField] float updateTargetFrequency;
+    [SerializeField] float attackRange;
     [SerializeField] float fireRate;
-    [SerializeField] int damage;
+    [SerializeField] GameObject projectilePrefab;
+    public int damage;
 
     private void Start()
     {
-        InvokeRepeating(nameof(UpdateTarget), 0f, updateTargetFrequency);
+        InvokeRepeating(nameof(UpdateTarget), 0f, fireRate);
     }
     private void UpdateTarget()
     {
@@ -33,12 +34,12 @@ public class TowerBehavior : MonoBehaviour
         if (nearestEnemy != null && shortestDistance <= attackRange)
         {
             _target = nearestEnemy.transform;
-            ShootTarget(_target, damage);
+            Instantiate(projectilePrefab, transform);
         }
         else
             _target = null;
     }
-    private void ShootTarget(Transform target, int damage)
+    public void DamageTarget(Transform target, int damage)
     {
         int targetHealth = target.GetComponent<EnemyBehavior>().health;
         target.GetComponent<EnemyBehavior>().health = Mathf.Clamp(targetHealth - damage, 0, targetHealth);
@@ -50,5 +51,9 @@ public class TowerBehavior : MonoBehaviour
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+    public Transform GetTarget()
+    {
+        return _target;
     }
 }
