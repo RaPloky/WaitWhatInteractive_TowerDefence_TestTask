@@ -18,7 +18,7 @@ public class ProjectileBehavior : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D coll)
     {
         _tower.DamageTarget(_target, _tower.damage);
-        GameObject effect = (GameObject)Instantiate(hitEffect, transform.position, transform.rotation);
+        GameObject effect = Instantiate(hitEffect, transform.position, transform.rotation);
         Destroy(effect, DESTROY_EFFECT_DELAY);
         Destroy(gameObject);
     }
