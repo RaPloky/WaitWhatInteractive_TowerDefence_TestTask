@@ -5,8 +5,10 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour
 {
     [SerializeField] float projectileSpeed;
+    [SerializeField] GameObject hitEffect;
     private TowerBehavior _tower;
     private Transform _target;
+    private const float DESTROY_EFFECT_DELAY = 2f;
 
     private void Awake()
     {
@@ -16,6 +18,8 @@ public class ProjectileBehavior : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D coll)
     {
         _tower.DamageTarget(_target, _tower.damage);
+        GameObject effect = (GameObject)Instantiate(hitEffect, transform.position, transform.rotation);
+        Destroy(effect, DESTROY_EFFECT_DELAY);
         Destroy(gameObject);
     }
     private void FixedUpdate()
