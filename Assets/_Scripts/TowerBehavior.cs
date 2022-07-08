@@ -16,6 +16,12 @@ public class TowerBehavior : MonoBehaviour
     }
     private void UpdateTarget()
     {
+        if (projectilePrefab == null)
+        {
+            Debug.LogWarning($"No projectile for '{gameObject.name}' selected!");
+            return;
+        }
+
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
@@ -53,5 +59,9 @@ public class TowerBehavior : MonoBehaviour
     public Transform GetTarget()
     {
         return _target;
+    }
+    public string GetTargetTag()
+    {
+        return enemyTag;
     }
 }
