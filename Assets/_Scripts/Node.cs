@@ -8,6 +8,7 @@ public class Node : MonoBehaviour
     [SerializeField] SpriteRenderer highlightSprite;
 
     private Color _defaultColor;
+    private GameObject _tower;
 
     private void Awake()
     {
@@ -20,5 +21,15 @@ public class Node : MonoBehaviour
     private void OnMouseExit()
     {
         highlightSprite.color = _defaultColor;
+    }
+    private void OnMouseDown()
+    {
+        if (_tower != null)
+        {
+            Debug.LogWarning("There's already tower!");
+        }
+        GameObject towerToBuild = BuildManager.instance.GetTurretToBuild();
+        _tower = (GameObject)Instantiate(towerToBuild, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 }

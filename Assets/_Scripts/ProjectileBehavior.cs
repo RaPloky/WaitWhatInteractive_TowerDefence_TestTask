@@ -13,7 +13,7 @@ public class ProjectileBehavior : MonoBehaviour
     private void Awake()
     {
         _tower = transform.parent.GetComponent<TowerBehavior>();
-        _target = _tower.GetTarget();
+        _target = _tower.Target;
     }
     private void OnCollisionEnter2D(Collision2D coll)
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TowerBehavior : MonoBehaviour
 {
-    private Transform _target;
+    [HideInInspector] public Transform Target { get; set; }
 
     [SerializeField] string enemyTag;
     [SerializeField] float attackRange;
@@ -37,11 +37,11 @@ public class TowerBehavior : MonoBehaviour
         }
         if (nearestEnemy != null && shortestDistance <= attackRange)
         {
-            _target = nearestEnemy.transform;
+            Target = nearestEnemy.transform;
             Instantiate(projectilePrefab, transform);
         }
         else
-            _target = null;
+            Target = null;
     }
     public void DamageTarget(Transform target, int damage)
     {
@@ -55,10 +55,6 @@ public class TowerBehavior : MonoBehaviour
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-    public Transform GetTarget()
-    {
-        return _target;
     }
     public string GetTargetTag()
     {
