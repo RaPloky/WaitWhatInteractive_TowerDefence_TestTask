@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager instance;
-    private GameObject _turretToBuild;
+    public GameObject bulletTowerPrefab;
+    public GameObject energyTowerPrefab;
 
-    [SerializeField] GameObject standardTower;
+    private GameObject _towerToBuild;
 
     private void Awake()
     {
@@ -18,12 +17,12 @@ public class BuildManager : MonoBehaviour
         }
         instance = this;
     }
-    private void Start()
+    public GameObject GetTowerToBuild()
     {
-        _turretToBuild = standardTower;
+        return _towerToBuild;
     }
-    public GameObject GetTurretToBuild()
+    public void SetTowerToBuild(GameObject tower)
     {
-        return _turretToBuild;
+        _towerToBuild = tower;
     }
 }

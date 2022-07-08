@@ -9,13 +9,17 @@ public class Node : MonoBehaviour
 
     private Color _defaultColor;
     private GameObject _tower;
+    private BuildManager _buildManager;
 
-    private void Awake()
+    private void Start()
     {
         _defaultColor = highlightSprite.color;
+        _buildManager = BuildManager.instance;
     }
     private void OnMouseEnter()
     {
+        if (_buildManager.GetTowerToBuild() == null)
+            return;
         highlightSprite.color = newHighlightColor;
     }
     private void OnMouseExit()
@@ -24,11 +28,12 @@ public class Node : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if (_buildManager.GetTowerToBuild() == null)
+            return;
         if (_tower != null)
-        {
             Debug.LogWarning("There's already tower!");
-        }
-        GameObject towerToBuild = BuildManager.instance.GetTurretToBuild();
+
+        GameObject towerToBuild = _buildManager.GetTowerToBuild();
         _tower = (GameObject)Instantiate(towerToBuild, transform.position, transform.rotation);
         Destroy(gameObject);
     }
