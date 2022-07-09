@@ -13,6 +13,6 @@ public class SetWaveInfo : MonoBehaviour
     }
     public static void UpdateWaveInfo(int currentWaveIndex, int levelWavesCount)
     {
-        _waveInfo.text = $"Wave: {currentWaveIndex}/{levelWavesCount}";
+        _waveInfo.text = $"WAVE: {currentWaveIndex} / {levelWavesCount}";
     }
 }

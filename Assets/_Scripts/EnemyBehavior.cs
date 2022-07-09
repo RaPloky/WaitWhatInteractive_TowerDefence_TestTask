@@ -27,8 +27,8 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (waypointIndex >= Waypoints.waypoints.Length - 1)
         {
-            WaveSpawner.currentWaveEnemies--;
-            Destroy(gameObject);
+            DecreaseLives();
+            EndPath();
             return;
         }
         waypointIndex++;
@@ -44,5 +44,15 @@ public class EnemyBehavior : MonoBehaviour
     {
         PlayerStats.Money += destroyReward;
         PlayerStats.instance.UpdateMoneyText();
+    }
+    private void DecreaseLives()
+    {
+        PlayerStats.AmountOfLives = Mathf.Clamp(PlayerStats.AmountOfLives - 1, 0, PlayerStats.instance.livesLimit);
+        PlayerStats.instance.UpdateLivesAmount();
+    }
+    private void EndPath()
+    {
+        WaveSpawner.currentWaveEnemies--;
+        Destroy(gameObject);
     }
 }
