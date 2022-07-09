@@ -2,18 +2,21 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    public Blueprint bulletTower;
+    public Blueprint energyTower;
+
     private BuildManager _buildManager;
 
     private void Start()
     {
         _buildManager = BuildManager.instance;
     }
-    public void PurchaseBulletTower()
+    public void SelectBulletTower()
     {
-        _buildManager.SetTowerToBuild(_buildManager.bulletTowerPrefab);
+        _buildManager.SelectTowerToBuild(bulletTower);
     }
-    public void PurchaseEnergyTower()
+    public void SelectEnergyTower()
     {
-        _buildManager.SetTowerToBuild(_buildManager.energyTowerPrefab);
+        _buildManager.SelectTowerToBuild(energyTower);
     }
 }

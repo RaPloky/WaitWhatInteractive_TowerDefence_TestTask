@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 226556618}
   - component: {fileID: 226556621}
   m_Layer: 0
-  m_Name: Tower
-  m_TagString: Untagged
+  m_Name: TowerNode
+  m_TagString: TowerNode
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  notEnoughMoneyColor: {r: 1, g: 0.051886797, b: 0.051886797, a: 0.7019608}
   highlightSprite: {fileID: 3503906203275446712}
+  tower: {fileID: 0}
 --- !u!58 &226556621
 CircleCollider2D:
   m_ObjectHideFlags: 0

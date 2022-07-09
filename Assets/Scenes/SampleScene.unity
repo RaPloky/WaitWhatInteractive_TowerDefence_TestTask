@@ -209,8 +209,8 @@ GameObject:
   m_Component:
   - component: {fileID: 58153341}
   - component: {fileID: 58153342}
-  - component: {fileID: 58153343}
   - component: {fileID: 58153344}
+  - component: {fileID: 58153345}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -255,18 +255,6 @@ MonoBehaviour:
   firstWaveEnemies: 3
   regularWaveEnemies: 7
   levelWavesCount: 3
---- !u!114 &58153343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58153340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d35e287868a86be4eb3ff43587c3ca1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &58153344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +269,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletTowerPrefab: {fileID: 3775523650787745713, guid: 88fd9855cdbfed14a995aa29d45a7cab, type: 3}
   energyTowerPrefab: {fileID: 3775523650787745713, guid: 358d7a3361a789f45b0e667186eeded3, type: 3}
+--- !u!114 &58153345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58153340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52840f5a50c41544aa9d8f7d11db51f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMoney: 150
 --- !u!1001 &87605995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -686,10 +687,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerNode
       objectReference: {fileID: 0}
-    - target: {fileID: 598410158854435806, guid: e384613ceca820c4b87b1589d7c158b2, type: 3}
-      propertyPath: m_TagString
-      value: TowerNode
-      objectReference: {fileID: 0}
     - target: {fileID: 598410158854435807, guid: e384613ceca820c4b87b1589d7c158b2, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -901,7 +898,6 @@ GameObject:
   - component: {fileID: 408944039}
   - component: {fileID: 408944041}
   - component: {fileID: 408944040}
-  - component: {fileID: 408944042}
   m_Layer: 5
   m_Name: CoinsInfo
   m_TagString: Untagged
@@ -1026,18 +1022,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408944038}
   m_CullTransparentMesh: 1
---- !u!114 &408944042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 408944038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f5d73896dce2bb4c949eb5963606307, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,7 +1459,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1353795228}
         m_TargetAssemblyTypeName: Shop, Assembly-CSharp
-        m_MethodName: PurchaseEnergyTower
+        m_MethodName: SelectEnergyTower
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1809,7 +1793,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1353795228}
         m_TargetAssemblyTypeName: Shop, Assembly-CSharp
-        m_MethodName: PurchaseBulletTower
+        m_MethodName: SelectBulletTower
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2100,6 +2084,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 226556618, guid: e384613ceca820c4b87b1589d7c158b2, type: 3}
+      propertyPath: tower
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 598410158854435806, guid: e384613ceca820c4b87b1589d7c158b2, type: 3}
       propertyPath: m_Name
       value: TowerNode (6)
@@ -2334,6 +2322,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f41d31b1fbf60644a2189830a10fe11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletTower:
+    prefab: {fileID: 3775523650787745713, guid: 88fd9855cdbfed14a995aa29d45a7cab, type: 3}
+    cost: 50
+  energyTower:
+    prefab: {fileID: 3775523650787745713, guid: 358d7a3361a789f45b0e667186eeded3, type: 3}
+    cost: 70
 --- !u!1001 &1443160894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3030,7 +3024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2046262363}
   m_Layer: 5
-  m_Name: CoinsInfo
+  m_Name: MoneyInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

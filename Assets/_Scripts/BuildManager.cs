@@ -6,7 +6,7 @@ public class BuildManager : MonoBehaviour
     public GameObject bulletTowerPrefab;
     public GameObject energyTowerPrefab;
 
-    private GameObject _towerToBuild;
+    private Blueprint _towerToBuild;
 
     private void Awake()
     {
@@ -17,12 +17,19 @@ public class BuildManager : MonoBehaviour
         }
         instance = this;
     }
-    public GameObject GetTowerToBuild()
+    public bool CanBuild { get { return _towerToBuild != null; } }
+    public bool HasMoney { get { return PlayerStats.Money >= _towerToBuild.cost; } }
+    public void SelectTowerToBuild(Blueprint selectedTower)
     {
-        return _towerToBuild;
+        _towerToBuild = selectedTower;
     }
-    public void SetTowerToBuild(GameObject tower)
+    public void BuildTowerOn(Node node)
     {
-        _towerToBuild = tower;
+        if (PlayerStats.Money < _towerToBuild.cost)
+            return;
+
+        PlayerStats.Money -= _towerToBuild.cost;
+        GameObject tower = Instantiate(_towerToBuild.prefab, node.transform.position, Quaternion.identity);
+        node.tower = tower;
     }
 }

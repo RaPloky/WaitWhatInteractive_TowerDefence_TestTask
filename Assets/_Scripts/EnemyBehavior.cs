@@ -36,8 +36,7 @@ public class EnemyBehavior : MonoBehaviour
     }
     public void DestroyEnemy()
     {
-        CoinManager.coinsCount += destroyReward;
-        SetCoinsInfo.UpdateCoinsInfo(CoinManager.coinsCount);
+        PlayerStats.Money += destroyReward;
         WaveSpawner.currentWaveEnemies--;
         Destroy(gameObject);
     }

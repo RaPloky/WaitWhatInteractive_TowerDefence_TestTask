@@ -5,10 +5,12 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     [SerializeField] Color newHighlightColor;
+    [SerializeField] Color notEnoughMoneyColor;
     [SerializeField] SpriteRenderer highlightSprite;
+    [Header("Optional")]
+    public GameObject tower;
 
     private Color _defaultColor;
-    private GameObject _tower;
     private BuildManager _buildManager;
 
     private void Start()
@@ -18,9 +20,17 @@ public class Node : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        if (_buildManager.GetTowerToBuild() == null)
+        if (!_buildManager.CanBuild)
             return;
-        highlightSprite.color = newHighlightColor;
+
+        if (_buildManager.HasMoney)
+        {
+            highlightSprite.color = newHighlightColor;
+        }
+        else
+        {
+            highlightSprite.color = notEnoughMoneyColor;
+        }
     }
     private void OnMouseExit()
     {
@@ -28,13 +38,19 @@ public class Node : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (_buildManager.GetTowerToBuild() == null)
+        if (!_buildManager.CanBuild)
             return;
-        if (_tower != null)
+        if (tower != null)
             Debug.LogWarning("There's already tower!");
+        else if (_buildManager.HasMoney)
+        {
+            _buildManager.BuildTowerOn(this);
+            DestroyNode();
+        }
 
-        GameObject towerToBuild = _buildManager.GetTowerToBuild();
-        _tower = (GameObject)Instantiate(towerToBuild, transform.position, transform.rotation);
+    }
+    private void DestroyNode()
+    {
         Destroy(gameObject);
     }
 }
