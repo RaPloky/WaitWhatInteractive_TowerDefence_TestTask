@@ -42,12 +42,12 @@ public class Node : MonoBehaviour
             return;
         if (tower != null)
             Debug.LogWarning("There's already tower!");
+
         else if (_buildManager.HasMoney)
         {
             _buildManager.BuildTowerOn(this);
             DestroyNode();
         }
-
     }
     private void DestroyNode()
     {

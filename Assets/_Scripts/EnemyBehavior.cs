@@ -36,8 +36,13 @@ public class EnemyBehavior : MonoBehaviour
     }
     public void DestroyEnemy()
     {
-        PlayerStats.Money += destroyReward;
+        AddRewardForEnemy();
         WaveSpawner.currentWaveEnemies--;
         Destroy(gameObject);
+    }
+    private void AddRewardForEnemy()
+    {
+        PlayerStats.Money += destroyReward;
+        PlayerStats.instance.UpdateMoneyText();
     }
 }
