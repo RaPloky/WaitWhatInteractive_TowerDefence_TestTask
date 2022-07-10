@@ -14,9 +14,11 @@ public class NodeUI : MonoBehaviour
         UI.SetActive(true);
         _target = target;
         transform.position = target.transform.position;
-        if (!target.isUpgraded)
+        if (!target.isMaxUpgraded)
         {
-            upgradeCost.text = "$" + _target.towerBlueprint.upgradeCost;
+            // !!!
+            // Maybe unexpected value:
+            upgradeCost.text = "$" + _target.towerBlueprint.costs[_target.nextTowerLvlIndex];
             upgradeButton.interactable = true;
         }
         else

@@ -285,7 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moneyText: {fileID: 408944040}
   livesText: {fileID: 697867069}
-  startMoney: 150
+  startMoney: 500
   startLives: 5
   livesLimit: 5
 --- !u!114 &58153346
@@ -3931,15 +3931,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletTower:
-    prefab: {fileID: 3775523650787745713, guid: 88fd9855cdbfed14a995aa29d45a7cab, type: 3}
-    cost: 50
-    upgradedPrefab: {fileID: 3775523650787745713, guid: ee933918f9e6bbb4e8135a8784a0a6aa, type: 3}
-    upgradeCost: 70
+    prefabs:
+    - {fileID: 3775523650787745713, guid: 88fd9855cdbfed14a995aa29d45a7cab, type: 3}
+    - {fileID: 3775523650787745713, guid: ee933918f9e6bbb4e8135a8784a0a6aa, type: 3}
+    - {fileID: 3775523650787745713, guid: f0475bd831af80c4d8931e6f57a3e958, type: 3}
+    costs: 46000000550000006e000000
   energyTower:
-    prefab: {fileID: 3775523650787745713, guid: 358d7a3361a789f45b0e667186eeded3, type: 3}
-    cost: 70
-    upgradedPrefab: {fileID: 3775523650787745713, guid: 6ec9d1fc9da7e914480acb88a2fd337e, type: 3}
-    upgradeCost: 85
+    prefabs:
+    - {fileID: 3775523650787745713, guid: 358d7a3361a789f45b0e667186eeded3, type: 3}
+    - {fileID: 3775523650787745713, guid: 6ec9d1fc9da7e914480acb88a2fd337e, type: 3}
+    - {fileID: 3775523650787745713, guid: d419d7716981735429211440497a1058, type: 3}
+    costs: 550000006400000078000000
 --- !u!1 &1384004157
 GameObject:
   m_ObjectHideFlags: 0

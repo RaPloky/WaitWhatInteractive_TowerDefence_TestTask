@@ -5,9 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class Blueprint
 {
-    public GameObject prefab;
-    public int cost;
-    public GameObject upgradedPrefab;
-    public int upgradeCost;
-
+    public GameObject[] prefabs;
+    public int[] costs;
 }
