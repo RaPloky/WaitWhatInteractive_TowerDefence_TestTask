@@ -45,6 +45,7 @@ public class WaveSpawner : MonoBehaviour
             if (IsWaveDefeated())
             {
                 currentWaveIndex++;
+                PlayerStats.WavesSurvived++;
                 // For new wave:
                 _isAllWaveDefeated = false;
                 StartCoroutine(SpawnWave(regularWaveDelay, regularWaveEnemies));

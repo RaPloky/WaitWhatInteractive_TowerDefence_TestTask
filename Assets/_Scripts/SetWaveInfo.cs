@@ -5,14 +5,15 @@ using TMPro;
 
 public class SetWaveInfo : MonoBehaviour
 {
-    private static TextMeshProUGUI _waveInfo;
+    private static TextMeshProUGUI _wavesInfo;
+    [SerializeField] TextMeshProUGUI wavesSurvivedText;
 
     private void Awake()
     {
-        _waveInfo = GetComponent<TextMeshProUGUI>();
+        _wavesInfo = GetComponent<TextMeshProUGUI>();
     }
     public static void UpdateWaveInfo(int currentWaveIndex, int levelWavesCount)
     {
-        _waveInfo.text = $"WAVE: {currentWaveIndex} / {levelWavesCount}";
+        _wavesInfo.text = $"WAVE: {currentWaveIndex}/{levelWavesCount}";
     }
 }

@@ -11,14 +11,16 @@ public class PlayerStats : MonoBehaviour
 
     public static int Money;
     public static int AmountOfLives;
+    public static int WavesSurvived;
     public static PlayerStats instance;
 
     private void Start()
     {
         Money = startMoney;
         AmountOfLives = startLives;
+        WavesSurvived = 0;
         moneyText.text = "$" + startMoney.ToString();
-        livesText.text = startLives + " / " + livesLimit + " LIVES";
+        livesText.text = startLives + "/" + livesLimit + " LIVES";
         instance = this;
     }
     public void UpdateMoneyText()
@@ -27,6 +29,6 @@ public class PlayerStats : MonoBehaviour
     }
     public void UpdateLivesAmount()
     {
-        livesText.text = AmountOfLives + " / " + livesLimit + " LIVES";
+        livesText.text = AmountOfLives + "/" + livesLimit + " LIVES";
     }
 }

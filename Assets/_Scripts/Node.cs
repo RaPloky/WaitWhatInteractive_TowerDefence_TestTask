@@ -20,7 +20,7 @@ public class Node : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        if (!_buildManager.CanBuild)
+        if (!_buildManager.CanBuild || GameplayManager.IsGameEnded)
             return;
 
         if (_buildManager.HasMoney)

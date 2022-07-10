@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
 {
-    public static bool _isGameEnded = false;
+    public static bool IsGameEnded;
+    [SerializeField] GameObject gameOverUI;
 
+    private void Awake()
+    {
+        IsGameEnded = false;
+    }
     private void Update()
     {
-        if (_isGameEnded)
+        if (IsGameEnded)
             return;
 
         if (Mathf.Approximately(PlayerStats.AmountOfLives, 0))
@@ -14,7 +19,7 @@ public class GameplayManager : MonoBehaviour
     }
     private void EndGame()
     {
-        print("End game!");
-        _isGameEnded = true;
+        gameOverUI.SetActive(true);
+        IsGameEnded = true;
     }
 }
