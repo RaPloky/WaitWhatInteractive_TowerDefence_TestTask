@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 598410158854435807}
   - component: {fileID: 226556618}
-  - component: {fileID: 226556621}
+  - component: {fileID: 2855389183923070477}
   m_Layer: 0
   m_Name: TowerNode
   m_TagString: TowerNode
@@ -50,8 +50,9 @@ MonoBehaviour:
   newHighlightColor: {r: 1, g: 1, b: 1, a: 1}
   notEnoughMoneyColor: {r: 1, g: 0.051886797, b: 0.051886797, a: 0.7019608}
   highlightSprite: {fileID: 3503906203275446712}
+  nodeSprite: {fileID: 598410158875359586}
   tower: {fileID: 0}
---- !u!58 &226556621
+--- !u!58 &2855389183923070477
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,7 +67,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 0.9
 --- !u!1 &598410158875359588
 GameObject:
   m_ObjectHideFlags: 0

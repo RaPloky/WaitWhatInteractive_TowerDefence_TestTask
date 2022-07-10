@@ -6,8 +6,10 @@ public class BuildManager : MonoBehaviour
     public GameObject bulletTowerPrefab;
     public GameObject energyTowerPrefab;
     [SerializeField] GameObject buildEffect;
+    [SerializeField] NodeUI nodeUI;
 
     private Blueprint _towerToBuild;
+    private Node _selectedNode;
     private const float DESTROY_EFFECT_DELAY = 2f;
 
     private void Awake()
@@ -24,12 +26,31 @@ public class BuildManager : MonoBehaviour
     public void SelectTowerToBuild(Blueprint selectedTower)
     {
         _towerToBuild = selectedTower;
+        _selectedNode = null;
+        nodeUI.Hide();
+    }
+    public void SelectNode(Node node)
+    {
+        if (_selectedNode == node)
+        {
+            DeselectNode();
+            return;
+        }
+        _selectedNode = node;
+        _towerToBuild = null;
+        nodeUI.SetTarget(node);
+    }
+    public void DeselectNode()
+    {
+        _selectedNode = null;
+        nodeUI.Hide();
     }
     public void BuildTowerOn(Node node)
     {
         if (PlayerStats.Money < _towerToBuild.cost)
             return;
         PayCostForTower();
+
         GameObject tower = Instantiate(_towerToBuild.prefab, node.transform.position, Quaternion.identity);
         node.tower = tower;
         GameObject effect = Instantiate(buildEffect, node.transform.position, Quaternion.identity);

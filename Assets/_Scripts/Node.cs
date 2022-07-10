@@ -7,6 +7,7 @@ public class Node : MonoBehaviour
     [SerializeField] Color newHighlightColor;
     [SerializeField] Color notEnoughMoneyColor;
     [SerializeField] SpriteRenderer highlightSprite;
+    [SerializeField] SpriteRenderer nodeSprite;
     [Header("Optional")]
     public GameObject tower;
 
@@ -20,17 +21,13 @@ public class Node : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        if (!_buildManager.CanBuild || GameplayManager.IsGameEnded)
+        if (!_buildManager.CanBuild || GameplayManager.IsGameEnded || tower != null)
             return;
 
         if (_buildManager.HasMoney)
-        {
             highlightSprite.color = newHighlightColor;
-        }
         else
-        {
             highlightSprite.color = notEnoughMoneyColor;
-        }
     }
     private void OnMouseExit()
     {
@@ -38,19 +35,24 @@ public class Node : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if (tower != null)
+        {
+            _buildManager.SelectNode(this);
+            return;
+        }
+
         if (!_buildManager.CanBuild)
             return;
-        if (tower != null)
-            Debug.LogWarning("There's already tower!");
 
         else if (_buildManager.HasMoney)
         {
             _buildManager.BuildTowerOn(this);
-            DestroyNode();
+            DisableNodeTexture();
         }
     }
-    private void DestroyNode()
+    private void DisableNodeTexture()
     {
-        Destroy(gameObject);
+        nodeSprite.sprite = null;
+        nodeSprite.material = null;
     }
 }
