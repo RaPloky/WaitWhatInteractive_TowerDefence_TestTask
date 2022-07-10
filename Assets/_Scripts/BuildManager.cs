@@ -5,12 +5,10 @@ public class BuildManager : MonoBehaviour
     public static BuildManager instance;
     public GameObject bulletTowerPrefab;
     public GameObject energyTowerPrefab;
-    [SerializeField] GameObject buildEffect;
     [SerializeField] NodeUI nodeUI;
 
     private Blueprint _towerToBuild;
     private Node _selectedNode;
-    private const float DESTROY_EFFECT_DELAY = 2f;
 
     private void Awake()
     {
@@ -45,20 +43,8 @@ public class BuildManager : MonoBehaviour
         _selectedNode = null;
         nodeUI.Hide();
     }
-    public void BuildTowerOn(Node node)
+    public Blueprint GetTowerToBuild()
     {
-        if (PlayerStats.Money < _towerToBuild.cost)
-            return;
-        PayCostForTower();
-
-        GameObject tower = Instantiate(_towerToBuild.prefab, node.transform.position, Quaternion.identity);
-        node.tower = tower;
-        GameObject effect = Instantiate(buildEffect, node.transform.position, Quaternion.identity);
-        Destroy(effect, DESTROY_EFFECT_DELAY);
-    }
-    private void PayCostForTower()
-    {
-        PlayerStats.Money = (int)Mathf.Clamp(PlayerStats.Money - _towerToBuild.cost, 0, Mathf.Infinity);
-        PlayerStats.instance.UpdateMoneyText();
+        return _towerToBuild;
     }
 }

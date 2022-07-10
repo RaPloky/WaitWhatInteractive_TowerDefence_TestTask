@@ -270,7 +270,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletTowerPrefab: {fileID: 3775523650787745713, guid: 88fd9855cdbfed14a995aa29d45a7cab, type: 3}
   energyTowerPrefab: {fileID: 3775523650787745713, guid: 358d7a3361a789f45b0e667186eeded3, type: 3}
-  buildEffect: {fileID: 3078159654769311125, guid: 50bdcc9a2e0851e41a622ea56a4332e0, type: 3}
   nodeUI: {fileID: 488948194}
 --- !u!114 &58153345
 MonoBehaviour:
@@ -1286,7 +1285,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 463109260}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 488948194}
+        m_TargetAssemblyTypeName: NodeUI, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &463109260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1506,6 +1517,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 1219034619}
+  upgradeCost: {fileID: 1268907102}
+  upgradeButton: {fileID: 463109259}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,9 +3933,13 @@ MonoBehaviour:
   bulletTower:
     prefab: {fileID: 3775523650787745713, guid: 88fd9855cdbfed14a995aa29d45a7cab, type: 3}
     cost: 50
+    upgradedPrefab: {fileID: 3775523650787745713, guid: ee933918f9e6bbb4e8135a8784a0a6aa, type: 3}
+    upgradeCost: 70
   energyTower:
     prefab: {fileID: 3775523650787745713, guid: 358d7a3361a789f45b0e667186eeded3, type: 3}
     cost: 70
+    upgradedPrefab: {fileID: 3775523650787745713, guid: 6ec9d1fc9da7e914480acb88a2fd337e, type: 3}
+    upgradeCost: 85
 --- !u!1 &1384004157
 GameObject:
   m_ObjectHideFlags: 0
