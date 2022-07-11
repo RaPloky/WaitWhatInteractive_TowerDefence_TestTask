@@ -6,5 +6,5 @@ using UnityEngine;
 public class Blueprint
 {
     public GameObject[] prefabs;
-    public int[] costs;
+    public int[] towerCosts;
 }

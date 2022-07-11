@@ -703,6 +703,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 787990664}
     m_Modifications:
+    - target: {fileID: 226556618, guid: e384613ceca820c4b87b1589d7c158b2, type: 3}
+      propertyPath: currentUpgradeLvl
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 598410158854435806, guid: e384613ceca820c4b87b1589d7c158b2, type: 3}
       propertyPath: m_Name
       value: TowerNode
@@ -3935,13 +3939,13 @@ MonoBehaviour:
     - {fileID: 3775523650787745713, guid: 88fd9855cdbfed14a995aa29d45a7cab, type: 3}
     - {fileID: 3775523650787745713, guid: ee933918f9e6bbb4e8135a8784a0a6aa, type: 3}
     - {fileID: 3775523650787745713, guid: f0475bd831af80c4d8931e6f57a3e958, type: 3}
-    costs: 46000000550000006e000000
+    towerCosts: 550000006400000082000000
   energyTower:
     prefabs:
     - {fileID: 3775523650787745713, guid: 358d7a3361a789f45b0e667186eeded3, type: 3}
     - {fileID: 3775523650787745713, guid: 6ec9d1fc9da7e914480acb88a2fd337e, type: 3}
     - {fileID: 3775523650787745713, guid: d419d7716981735429211440497a1058, type: 3}
-    costs: 550000006400000078000000
+    towerCosts: 5a0000006e0000008c000000
 --- !u!1 &1384004157
 GameObject:
   m_ObjectHideFlags: 0

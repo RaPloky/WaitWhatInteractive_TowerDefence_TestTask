@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Node : MonoBehaviour
@@ -13,7 +11,7 @@ public class Node : MonoBehaviour
     [HideInInspector] public GameObject tower;
     [HideInInspector] public Blueprint towerBlueprint;
     [HideInInspector] public bool isMaxUpgraded = false;
-    [HideInInspector] public int nextTowerLvlIndex = 0;
+    [HideInInspector] public int currentUpgradeLvl;
 
     private Color _defaultColor;
     private BuildManager _buildManager;
@@ -40,35 +38,37 @@ public class Node : MonoBehaviour
     }
     private void BuildTower(Blueprint blueprint)
     {
-        if (PlayerStats.Money < blueprint.costs[nextTowerLvlIndex])
+        if (PlayerStats.Money < blueprint.towerCosts[currentUpgradeLvl])
             return;
         PayCostForTowerBuild(blueprint);
 
-        GameObject newTower = Instantiate(blueprint.prefabs[nextTowerLvlIndex], transform.position, Quaternion.identity);
+        GameObject newTower = Instantiate(blueprint.prefabs[currentUpgradeLvl], transform.position, Quaternion.identity);
         tower = newTower;
         towerBlueprint = blueprint;
-        nextTowerLvlIndex++;
 
-        GameObject effect = Instantiate(buildEffect, transform.position, Quaternion.identity);
-        Destroy(effect, DESTROY_EFFECT_DELAY);
+        InstantiateEffect();
     }
     public void UpgradeTower()
     {
-        if (PlayerStats.Money < towerBlueprint.costs[nextTowerLvlIndex])
+        if (PlayerStats.Money < towerBlueprint.towerCosts[currentUpgradeLvl] || isMaxUpgraded)
             return;
-        PayCostForTowerUpgrade(towerBlueprint);
-        // Get rid of the old tower:
-        Destroy(tower);
-        // Build a new one:
-        GameObject newTower = Instantiate(towerBlueprint.prefabs[nextTowerLvlIndex], transform.position, Quaternion.identity);
-        tower = newTower;
-        nextTowerLvlIndex++;
 
-        GameObject effect = Instantiate(buildEffect, transform.position, Quaternion.identity);
-        Destroy(effect, DESTROY_EFFECT_DELAY);
+        currentUpgradeLvl++;
+        if (!isMaxUpgraded)
+        {
+            PayCostForTowerUpgrade(towerBlueprint);
+            GetRidOfOldTower();
+            // Build a new one:
+            GameObject newTower = Instantiate(towerBlueprint.prefabs[currentUpgradeLvl], transform.position, Quaternion.identity);
+            tower = newTower;
 
-        if (Mathf.Approximately(nextTowerLvlIndex, towerBlueprint.prefabs.Length))
+            InstantiateEffect();
+        }
+        if (Mathf.Approximately(currentUpgradeLvl, towerBlueprint.prefabs.Length - 1))
+        {
             isMaxUpgraded = true;
+            return;
+        }
     }
     private void OnMouseDown()
     {
@@ -94,12 +94,21 @@ public class Node : MonoBehaviour
     }
     private void PayCostForTowerBuild(Blueprint blueprint)
     {
-        PlayerStats.Money = (int)Mathf.Clamp(PlayerStats.Money - blueprint.costs[nextTowerLvlIndex], 0, Mathf.Infinity);
+        PlayerStats.Money = (int)Mathf.Clamp(PlayerStats.Money - blueprint.towerCosts[currentUpgradeLvl], 0, Mathf.Infinity);
         PlayerStats.instance.UpdateMoneyText();
     }
     private void PayCostForTowerUpgrade(Blueprint blueprint)
     {
-        PlayerStats.Money = (int)Mathf.Clamp(PlayerStats.Money - blueprint.costs[nextTowerLvlIndex], 0, Mathf.Infinity);
+        PlayerStats.Money = (int)Mathf.Clamp(PlayerStats.Money - blueprint.towerCosts[currentUpgradeLvl], 0, Mathf.Infinity);
         PlayerStats.instance.UpdateMoneyText();
+    }
+    private void InstantiateEffect()
+    {
+        GameObject effect = Instantiate(buildEffect, transform.position, Quaternion.identity);
+        Destroy(effect, DESTROY_EFFECT_DELAY);
+    }
+    private void GetRidOfOldTower()
+    {
+        Destroy(tower);
     }
 }
