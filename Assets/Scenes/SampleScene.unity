@@ -2760,7 +2760,7 @@ GameObject:
   - component: {fileID: 954228860}
   - component: {fileID: 954228859}
   m_Layer: 5
-  m_Name: CostText
+  m_Name: BulletTowerCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3946,6 +3946,8 @@ MonoBehaviour:
     - {fileID: 3775523650787745713, guid: 6ec9d1fc9da7e914480acb88a2fd337e, type: 3}
     - {fileID: 3775523650787745713, guid: d419d7716981735429211440497a1058, type: 3}
     towerCosts: 5a0000006e0000008c000000
+  bulletTowerCost: {fileID: 954228859}
+  energyTowerCost: {fileID: 1777199382}
 --- !u!1 &1384004157
 GameObject:
   m_ObjectHideFlags: 0
@@ -4837,7 +4839,7 @@ GameObject:
   - component: {fileID: 1777199383}
   - component: {fileID: 1777199382}
   m_Layer: 5
-  m_Name: CostText
+  m_Name: EnergyTowerCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
