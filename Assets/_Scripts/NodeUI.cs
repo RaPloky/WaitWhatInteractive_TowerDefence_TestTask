@@ -7,6 +7,7 @@ public class NodeUI : MonoBehaviour
     [SerializeField] GameObject UI;
     [SerializeField] TextMeshProUGUI upgradeCost;
     [SerializeField] Button upgradeButton;
+    [SerializeField] TextMeshProUGUI sellAmount;
     private Node _target;
 
     public void SetTarget(Node target)
@@ -24,6 +25,7 @@ public class NodeUI : MonoBehaviour
             upgradeCost.text = "MAX LEVEL";
             upgradeButton.interactable = false;
         }
+        sellAmount.text = "$" + _target.towerBlueprint.GetSellAmount(_target.currentUpgradeLvl);
     }
     public void Hide()
     {
@@ -33,5 +35,11 @@ public class NodeUI : MonoBehaviour
     {
         _target.UpgradeTower();
         BuildManager.instance.DeselectNode();
+    }
+    public void Sell()
+    {
+        _target.SellTower();
+        BuildManager.instance.DeselectNode();
+        PlayerStats.instance.UpdateMoneyText();
     }
 }

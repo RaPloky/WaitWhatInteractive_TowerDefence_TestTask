@@ -7,6 +7,8 @@ public class Node : MonoBehaviour
     [SerializeField] SpriteRenderer highlightSprite;
     [SerializeField] SpriteRenderer nodeSprite;
     [SerializeField] GameObject buildEffect;
+    [SerializeField] GameObject upgradeEffect;
+    [SerializeField] GameObject sellEffect;
 
     [HideInInspector] public GameObject tower;
     [HideInInspector] public Blueprint towerBlueprint;
@@ -15,12 +17,16 @@ public class Node : MonoBehaviour
 
     private Color _defaultColor;
     private BuildManager _buildManager;
+    private Material _defaultNodeMaterial;
+    private Sprite _defaultNodeSprite;
     private const float DESTROY_EFFECT_DELAY = 2f;
 
     private void Start()
     {
         _defaultColor = highlightSprite.color;
         _buildManager = BuildManager.instance;
+        _defaultNodeMaterial = nodeSprite.material;
+        _defaultNodeSprite = nodeSprite.sprite;
     }
     private void OnMouseEnter()
     {
@@ -46,7 +52,7 @@ public class Node : MonoBehaviour
         tower = newTower;
         towerBlueprint = blueprint;
 
-        InstantiateEffect();
+        InstantiateEffect(buildEffect);
     }
     public void UpgradeTower()
     {
@@ -62,13 +68,22 @@ public class Node : MonoBehaviour
             GameObject newTower = Instantiate(towerBlueprint.prefabs[currentUpgradeLvl], transform.position, Quaternion.identity);
             tower = newTower;
 
-            InstantiateEffect();
+            InstantiateEffect(upgradeEffect);
         }
         if (Mathf.Approximately(currentUpgradeLvl, towerBlueprint.prefabs.Length - 1))
         {
             isMaxUpgraded = true;
             return;
         }
+    }
+    public void SellTower()
+    {
+        PlayerStats.Money += towerBlueprint.GetSellAmount(currentUpgradeLvl);
+        towerBlueprint = null;
+        currentUpgradeLvl = 0;
+        EnableNodeTexture();
+        Destroy(tower);
+        InstantiateEffect(sellEffect);
     }
     private void OnMouseDown()
     {
@@ -92,6 +107,11 @@ public class Node : MonoBehaviour
         nodeSprite.sprite = null;
         nodeSprite.material = null;
     }
+    private void EnableNodeTexture()
+    {
+        nodeSprite.sprite = _defaultNodeSprite;
+        nodeSprite.material = _defaultNodeMaterial;
+    }
     private void PayCostForTowerBuild(Blueprint blueprint)
     {
         PlayerStats.Money = (int)Mathf.Clamp(PlayerStats.Money - blueprint.towerCosts[currentUpgradeLvl], 0, Mathf.Infinity);
@@ -102,11 +122,11 @@ public class Node : MonoBehaviour
         PlayerStats.Money = (int)Mathf.Clamp(PlayerStats.Money - blueprint.towerCosts[currentUpgradeLvl], 0, Mathf.Infinity);
         PlayerStats.instance.UpdateMoneyText();
     }
-    private void InstantiateEffect()
+    private void InstantiateEffect(GameObject effectPrefab)
     {
-        GameObject effect = Instantiate(buildEffect, transform.position, Quaternion.identity);
+        GameObject effect = Instantiate(effectPrefab, transform.position, Quaternion.identity);
         Destroy(effect, DESTROY_EFFECT_DELAY);
-    }
+    } 
     private void GetRidOfOldTower()
     {
         Destroy(tower);

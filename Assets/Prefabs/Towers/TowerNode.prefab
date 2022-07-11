@@ -52,13 +52,14 @@ MonoBehaviour:
   highlightSprite: {fileID: 3503906203275446712}
   nodeSprite: {fileID: 598410158875359586}
   buildEffect: {fileID: 3078159654769311125, guid: 50bdcc9a2e0851e41a622ea56a4332e0, type: 3}
+  upgradeEffect: {fileID: 3078159654769311125, guid: 736f3cbff7c6166408e7cb2882c2bcad, type: 3}
+  sellEffect: {fileID: 3078159654769311125, guid: ebf02eef52efa8d4492f750a60600a9d, type: 3}
   tower: {fileID: 0}
   towerBlueprint:
-    prefab: {fileID: 0}
-    cost: 0
-    upgradedPrefab: {fileID: 0}
-    upgradeCost: 0
-  isUpgraded: 0
+    prefabs: []
+    towerCosts: 
+  isMaxUpgraded: 0
+  currentUpgradeLvl: 0
 --- !u!58 &2855389183923070477
 CircleCollider2D:
   m_ObjectHideFlags: 0
