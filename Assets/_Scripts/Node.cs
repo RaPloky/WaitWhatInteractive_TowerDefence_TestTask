@@ -30,7 +30,7 @@ public class Node : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        if (!_buildManager.CanBuild || GameplayManager.IsGameEnded || tower != null)
+        if (!_buildManager.IsBuildingAllowedHere || GameplayManager.IsGameEnded || tower != null)
             return;
 
         if (_buildManager.HasMoney(this))
@@ -46,8 +46,8 @@ public class Node : MonoBehaviour
     {
         if (PlayerStats.Money < blueprint.towerCosts[currentUpgradeLvl])
             return;
-        PayCostForTowerBuild(blueprint);
 
+        PayCost(blueprint);
         GameObject newTower = Instantiate(blueprint.prefabs[currentUpgradeLvl], transform.position, Quaternion.identity);
         tower = newTower;
         towerBlueprint = blueprint;
@@ -56,21 +56,22 @@ public class Node : MonoBehaviour
     }
     public void UpgradeTower()
     {
-        if (PlayerStats.Money < towerBlueprint.towerCosts[currentUpgradeLvl] || isMaxUpgraded)
+        // [@index + 1] because next updgrade level is after current 
+        if (PlayerStats.Money < towerBlueprint.towerCosts[currentUpgradeLvl + 1] || isMaxUpgraded)
             return;
 
         currentUpgradeLvl++;
         if (!isMaxUpgraded)
         {
-            PayCostForTowerUpgrade(towerBlueprint);
+            PayCost(towerBlueprint);
             GetRidOfOldTower();
-            // Build a new one:
+            // Build a new one after removing previous
             GameObject newTower = Instantiate(towerBlueprint.prefabs[currentUpgradeLvl], transform.position, Quaternion.identity);
             tower = newTower;
 
             InstantiateEffect(upgradeEffect);
         }
-        if (Mathf.Approximately(currentUpgradeLvl, towerBlueprint.prefabs.Length - 1))
+        if (IsMaxUpdgradeLevelReached())
         {
             isMaxUpgraded = true;
             return;
@@ -79,11 +80,12 @@ public class Node : MonoBehaviour
     public void SellTower()
     {
         PlayerStats.Money += towerBlueprint.GetSellAmount(currentUpgradeLvl);
+        // Remove info about sold tower blueprint
         towerBlueprint = null;
         currentUpgradeLvl = 0;
         EnableNodeTexture();
-        Destroy(tower);
         InstantiateEffect(sellEffect);
+        Destroy(tower);
     }
     private void OnMouseDown()
     {
@@ -93,7 +95,7 @@ public class Node : MonoBehaviour
             return;
         }
 
-        if (!_buildManager.CanBuild)
+        if (!_buildManager.IsBuildingAllowedHere)
             return;
 
         else if (_buildManager.HasMoney(this))
@@ -112,12 +114,7 @@ public class Node : MonoBehaviour
         nodeSprite.sprite = _defaultNodeSprite;
         nodeSprite.material = _defaultNodeMaterial;
     }
-    private void PayCostForTowerBuild(Blueprint blueprint)
-    {
-        PlayerStats.Money = (int)Mathf.Clamp(PlayerStats.Money - blueprint.towerCosts[currentUpgradeLvl], 0, Mathf.Infinity);
-        PlayerStats.instance.UpdateMoneyText();
-    }
-    private void PayCostForTowerUpgrade(Blueprint blueprint)
+    private void PayCost(Blueprint blueprint)
     {
         PlayerStats.Money = (int)Mathf.Clamp(PlayerStats.Money - blueprint.towerCosts[currentUpgradeLvl], 0, Mathf.Infinity);
         PlayerStats.instance.UpdateMoneyText();
@@ -130,5 +127,9 @@ public class Node : MonoBehaviour
     private void GetRidOfOldTower()
     {
         Destroy(tower);
+    }
+    private bool IsMaxUpdgradeLevelReached()
+    {
+        return Mathf.Approximately(currentUpgradeLvl, towerBlueprint.prefabs.Length - 1);
     }
 }

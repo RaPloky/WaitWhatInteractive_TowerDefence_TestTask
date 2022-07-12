@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 178353289218772985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.63761, y: 0.63761, z: 0.63761}
+  m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 178353290654228382}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 1, g: 0.24056602, b: 0.24056602, a: 1}
+  m_Sprite: {fileID: 21300000, guid: fde01e6986fdd914ca2b90d57c5d3796, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 178353290654228383}
   - component: {fileID: 3670068930243550239}
   - component: {fileID: 3994642785557835577}
+  - component: {fileID: 7319337664255569546}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -137,6 +138,7 @@ MonoBehaviour:
   currentHealth: 150
   destroyReward: 25
   healthBar: {fileID: 7997184429812266693}
+  deathEffect: {fileID: 3078159654769311125, guid: edc9a40d035d70240aa17b1f5977ea18, type: 3}
 --- !u!58 &3670068930243550239
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -174,6 +176,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &7319337664255569546
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178353290654228377}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9bde6d74080402847b3540a4b8bc2701, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4491256437606536025
 GameObject:
   m_ObjectHideFlags: 0

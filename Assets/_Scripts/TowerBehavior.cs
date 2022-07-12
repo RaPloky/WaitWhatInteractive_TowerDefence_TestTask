@@ -35,7 +35,7 @@ public class TowerBehavior : MonoBehaviour
                 nearestEnemy = enemy;
             }
         }
-        if (nearestEnemy != null && shortestDistance <= attackRange)
+        if (nearestEnemy != null && IsTargetWithinRange(shortestDistance, attackRange))
         {
             Target = nearestEnemy.transform;
             Instantiate(projectilePrefab, transform);
@@ -43,6 +43,7 @@ public class TowerBehavior : MonoBehaviour
         else
             Target = null;
     }
+    // Show attack range in editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
@@ -51,5 +52,9 @@ public class TowerBehavior : MonoBehaviour
     public string GetTargetTag()
     {
         return enemyTag;
+    }
+    private bool IsTargetWithinRange(float shortestDistance, float attackRange)
+    {
+        return shortestDistance <= attackRange;
     }
 }

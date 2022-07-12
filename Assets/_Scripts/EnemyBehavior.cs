@@ -10,26 +10,30 @@ public class EnemyBehavior : MonoBehaviour
     public int destroyReward;
     public Image healthBar;
 
+    [SerializeField] GameObject deathEffect;
     private Transform _waypointTarget;
     private int _waypointIndex = 0;
     private float _startHealth;
+    private const float DESTROY_EFFECT_DELAY = 2f;
 
     private void Start()
     {
+        // Enemy will start their move to first waypoint in array of waypoints
         _waypointTarget = Waypoints.waypoints[0];
+        // Sets for proper healthbar filling value
         _startHealth = currentHealth;
     }
     private void Update()
     {
         Vector2 dir = _waypointTarget.position - transform.position;
         transform.Translate(speed * Time.deltaTime * dir.normalized, Space.World);
-
+        // Change waypoint
         if (Vector2.Distance(transform.position, _waypointTarget.position) <= distanceLimit)
             GetNextWaypoint();
     }
     private void GetNextWaypoint()
     {
-        if (_waypointIndex >= Waypoints.waypoints.Length - 1)
+        if (IsEnemyReachedPathEnd())
         {
             DecreaseLives();
             EndPath();
@@ -48,8 +52,11 @@ public class EnemyBehavior : MonoBehaviour
     }
     public void DestroyEnemy()
     {
+        GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(effect, DESTROY_EFFECT_DELAY);
+
         AddRewardForEnemy();
-        WaveSpawner.currentWaveEnemies--;
+        WaveSpawner.instance.currentWaveEnemies--;
         Destroy(gameObject);
     }
     private void AddRewardForEnemy()
@@ -64,7 +71,11 @@ public class EnemyBehavior : MonoBehaviour
     }
     private void EndPath()
     {
-        WaveSpawner.currentWaveEnemies--;
+        WaveSpawner.instance.currentWaveEnemies--;
         Destroy(gameObject);
+    }
+    private bool IsEnemyReachedPathEnd()
+    {
+        return _waypointIndex >= Waypoints.waypoints.Length - 1;
     }
 }

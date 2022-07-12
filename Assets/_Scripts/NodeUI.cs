@@ -10,13 +10,14 @@ public class NodeUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI sellAmount;
     private Node _target;
 
-    public void SetTarget(Node target)
+    public void SetTarget(Node choosenNode)
     {
         UI.SetActive(true);
-        _target = target;
-        transform.position = target.transform.position;
-        if (!target.isMaxUpgraded)
+        _target = choosenNode;
+        transform.position = choosenNode.transform.position;
+        if (!choosenNode.isMaxUpgraded)
         {
+            // [@index + 1] because next updgrade level is after current 
             upgradeCost.text = "$" + _target.towerBlueprint.towerCosts[_target.currentUpgradeLvl + 1];
             upgradeButton.interactable = true;
         }
