@@ -1,38 +1,50 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float distanceLimit;
 
-    public int health;
+    public int currentHealth;
     public int destroyReward;
+    public Image healthBar;
 
-    private Transform waypointTarget;
-    private int waypointIndex = 0;
+    private Transform _waypointTarget;
+    private int _waypointIndex = 0;
+    private float _startHealth;
 
     private void Start()
     {
-        waypointTarget = Waypoints.waypoints[0];
+        _waypointTarget = Waypoints.waypoints[0];
+        _startHealth = currentHealth;
     }
     private void Update()
     {
-        Vector2 dir = waypointTarget.position - transform.position;
+        Vector2 dir = _waypointTarget.position - transform.position;
         transform.Translate(speed * Time.deltaTime * dir.normalized, Space.World);
 
-        if (Vector2.Distance(transform.position, waypointTarget.position) <= distanceLimit)
+        if (Vector2.Distance(transform.position, _waypointTarget.position) <= distanceLimit)
             GetNextWaypoint();
     }
     private void GetNextWaypoint()
     {
-        if (waypointIndex >= Waypoints.waypoints.Length - 1)
+        if (_waypointIndex >= Waypoints.waypoints.Length - 1)
         {
             DecreaseLives();
             EndPath();
             return;
         }
-        waypointIndex++;
-        waypointTarget = Waypoints.waypoints[waypointIndex];
+        _waypointIndex++;
+        _waypointTarget = Waypoints.waypoints[_waypointIndex];
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0, currentHealth);
+        healthBar.fillAmount = currentHealth / _startHealth;
+
+        if (Mathf.Approximately(currentHealth, 0))
+            DestroyEnemy();
     }
     public void DestroyEnemy()
     {

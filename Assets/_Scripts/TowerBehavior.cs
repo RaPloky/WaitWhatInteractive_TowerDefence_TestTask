@@ -43,14 +43,6 @@ public class TowerBehavior : MonoBehaviour
         else
             Target = null;
     }
-    public void DamageTarget(Transform target, int damage)
-    {
-        int targetHealth = target.GetComponent<EnemyBehavior>().health;
-        target.GetComponent<EnemyBehavior>().health = Mathf.Clamp(targetHealth - damage, 0, targetHealth);
-
-        if (target.GetComponent<EnemyBehavior>().health == 0)
-            target.GetComponent<EnemyBehavior>().DestroyEnemy();
-    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
